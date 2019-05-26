@@ -1,5 +1,65 @@
-<p>
-  page works!
+<div class="main_box">
 
-  <button mat-button (click)="fun_test()">HEY</button>
-</p>
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>choosing files</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-table [dataSource]="dataSource" style="width:100%;">
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <mat-header-cell *matHeaderCellDef style="flex: 0 0 40px">
+            <!--<mat-checkbox (change)="$event ? masterToggle() : null"-->
+            <!--[checked]="selection.hasValue() && isAllSelected()"-->
+            <!--[indeterminate]="selection.hasValue() && !isAllSelected()">-->
+            <!--</mat-checkbox>-->
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row" style="flex: 0 0 40px">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? selection.toggle(row) : null"
+                          [checked]="selection.isSelected(row)"
+                          [aria-label]="checkboxLabel(row)"
+                          [disabled]="selection.selected.length == 2 && !selection.isSelected(row)">
+            </mat-checkbox>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </mat-card-content>
+  </mat-card>
+
+
+  <mat-card class=" box">
+    <mat-card-header>
+      <mat-card-title>
+        specify columns
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <button mat-button (click)="fun_test()">HEY</button>
+      do stuff
+    </mat-card-content>
+  </mat-card>
+
+
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>
+        stuff
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <button mat-button (click)="fun_test()">HEY</button>
+      do stuff
+    </mat-card-content>
+  </mat-card>
+
+</div>

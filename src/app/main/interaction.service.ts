@@ -15,4 +15,8 @@ export class InteractionService {
   communication_test() {
     return this.http.get(this.addr + '/request');
   }
+
+  get_cwd() {
+    return this.http.get(this.addr + '/cwd');
+  }
 }
