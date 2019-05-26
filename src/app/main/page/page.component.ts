@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {InteractionService} from '../interaction.service';
 
 @Component({
   selector: 'app-page',
@@ -7,10 +8,14 @@ import {Component, OnInit} from '@angular/core';
 })
 export class PageComponent implements OnInit {
 
-  constructor() {
+  constructor(private interaction: InteractionService) {
   }
 
   ngOnInit() {
   }
 
+  fun_test() {
+    this.interaction.communication_test()
+      .subscribe((data) => console.log(data));
+  }
 }
