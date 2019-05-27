@@ -14,6 +14,7 @@ export class PageComponent implements OnInit {
   selection = new SelectionModel<string>(true, []);
   dataSource = new MatTableDataSource<string>();
 
+
   constructor(private interaction: InteractionService) {
   }
 
@@ -22,7 +23,11 @@ export class PageComponent implements OnInit {
   }
 
   fun_test() {
+    console.log(this.selection.selected);
     this.interaction.communication_test()
+      .subscribe((data) => console.log(data));
+
+    this.interaction.get_csv_info('a_file.csv')
       .subscribe((data) => console.log(data));
   }
 
@@ -39,13 +44,6 @@ export class PageComponent implements OnInit {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
   checkboxLabel(row?: string): string {

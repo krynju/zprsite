@@ -1,8 +1,30 @@
 <div class="main_box">
+  <div class="box" style="display: flex;flex-direction: column">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Generate report</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <button mat-button (click)="fun_test()">Generate</button>
+        do stuff
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>other reports</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <button mat-button (click)="fun_test()">Generate</button>
+        do stuff
+      </mat-card-content>
+    </mat-card>
+  </div>
+
 
   <mat-card class="box">
     <mat-card-header>
-      <mat-card-title>choosing files</mat-card-title>
+      <mat-card-title>Choose two files</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <mat-table [dataSource]="dataSource" style="width:100%;">
@@ -37,29 +59,15 @@
   </mat-card>
 
 
-  <mat-card class=" box">
-    <mat-card-header>
-      <mat-card-title>
-        specify columns
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <button mat-button (click)="fun_test()">HEY</button>
-      do stuff
-    </mat-card-content>
-  </mat-card>
-
-
-  <mat-card class="box">
-    <mat-card-header>
-      <mat-card-title>
-        stuff
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <button mat-button (click)="fun_test()">HEY</button>
-      do stuff
-    </mat-card-content>
-  </mat-card>
+  <div class="box middle-box">
+    <mat-card *ngFor="let item of selection.selected">
+      <mat-card-header>
+        <mat-card-title>{{item}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <img src="https://media.tenor.com/images/f7523797b0207e5af66f394dbf559a05/tenor.gif" alt="asda">
+      </mat-card-content>
+    </mat-card>
+  </div>
 
 </div>

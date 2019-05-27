@@ -13,10 +13,14 @@ export class InteractionService {
 
 
   communication_test() {
-    return this.http.get(this.addr + '/request');
+    return this.http.get(this.addr + '/api/request');
   }
 
   get_cwd() {
-    return this.http.get(this.addr + '/cwd');
+    return this.http.get(this.addr + '/api/cwd');
+  }
+
+  get_csv_info(filename: string) {
+    return this.http.get(this.addr + '/api/csv_info', {params: {filename}});
   }
 }
