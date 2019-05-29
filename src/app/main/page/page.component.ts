@@ -2,20 +2,25 @@ import {Component, OnInit} from '@angular/core';
 import {InteractionService} from '../interaction.service';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource} from '@angular/material';
+import {FFile} from '../../models/DirectoryData';
+import {DirectoryData} from '../../models/DirectoryData';
 
 @Component({
   selector: 'app-page',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.css']
 })
+
+
 export class PageComponent implements OnInit {
+
   currentDirectoryData: DirectoryData;
   displayedColumns: string[] = ['select', 'name'];
-  selection = new SelectionModel<string>(true, []);
-  dataSource = new MatTableDataSource<string>();
-
+  selection = new SelectionModel<FFile>(true, []);
+  dataSource = new MatTableDataSource<FFile>();
 
   constructor(private interaction: InteractionService) {
+
   }
 
   ngOnInit() {
@@ -26,16 +31,14 @@ export class PageComponent implements OnInit {
     console.log(this.selection.selected);
     this.interaction.communication_test()
       .subscribe((data) => console.log(data));
-
-    this.interaction.get_csv_info('a_file.csv')
-      .subscribe((data) => console.log(data));
   }
 
   directory_data() {
     this.interaction.get_cwd()
       .subscribe((data: DirectoryData) => {
         this.currentDirectoryData = data;
-        this.dataSource = new MatTableDataSource<string>(data.files);
+        this.dataSource = new MatTableDataSource<FFile>(data.files);
+        console.log(data);
       });
   }
 
@@ -46,10 +49,13 @@ export class PageComponent implements OnInit {
     return numSelected === numRows;
   }
 
-  checkboxLabel(row?: string): string {
+  checkboxLabel(row?: FFile): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name + 1}`;
   }
+
+
+
 }

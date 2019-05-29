@@ -41,7 +41,7 @@
                           (change)="$event ? selection.toggle(row) : null"
                           [checked]="selection.isSelected(row)"
                           [aria-label]="checkboxLabel(row)"
-                          [disabled]="selection.selected.length == 2 && !selection.isSelected(row)">
+                          [disabled]="selection.selected.length == 2 && !selection.isSelected(row) || row.status != 'csv'">
             </mat-checkbox>
           </mat-cell>
         </ng-container>
@@ -49,7 +49,7 @@
         <!-- Name Column -->
         <ng-container matColumnDef="name">
           <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.filename}} </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -62,9 +62,10 @@
   <div class="box middle-box">
     <mat-card *ngFor="let item of selection.selected">
       <mat-card-header>
-        <mat-card-title>{{item}}</mat-card-title>
+        <mat-card-title>{{item.filename}}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
+        <p *ngFor="let col of item.columns">{{col}}</p>
         <img src="https://media.tenor.com/images/f7523797b0207e5af66f394dbf559a05/tenor.gif" alt="asda">
       </mat-card-content>
     </mat-card>
