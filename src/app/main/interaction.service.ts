@@ -23,4 +23,12 @@ export class InteractionService {
   get_csv_info(filename: string) {
     return this.http.get(this.addr + '/api/csv_info', {params: {filename}});
   }
+
+  report_request(cargo) {
+    return this.http.post(this.addr + '/api/report', {data: cargo});
+  }
+
+  see_report(name) {
+    return this.http.get(this.addr + '/app/report');
+  }
 }

@@ -4,6 +4,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource} from '@angular/material';
 import {FFile} from '../../models/DirectoryData';
 import {DirectoryData} from '../../models/DirectoryData';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-page',
@@ -19,7 +20,9 @@ export class PageComponent implements OnInit {
   selection = new SelectionModel<FFile>(true, []);
   dataSource = new MatTableDataSource<FFile>();
 
-  constructor(private interaction: InteractionService) {
+  selectedColumns = {};
+
+  constructor(private interaction: InteractionService, private router: Router) {
 
   }
 
@@ -28,9 +31,32 @@ export class PageComponent implements OnInit {
   }
 
   fun_test() {
-    console.log(this.selection.selected);
-    this.interaction.communication_test()
-      .subscribe((data) => console.log(data));
+    console.log(this.selectedColumns);
+    this.router.navigateByUrl('/app/report');
+    // this.interaction.see_report('dwada')
+    //   .subscribe(()=> );
+  }
+
+  generateReport() {
+
+
+    const cargo = this.selection.selected
+      .map((x) => {
+        return {
+          filename: x.filename,
+          column: this.selectedColumns[x.filename].column,
+          type: this.selectedColumns[x.filename].type,
+        };
+      });
+
+    console.log(cargo);
+
+    if (this.selection.selected.length !== 2) {
+      return;
+    }
+
+    this.interaction.report_request(cargo)
+      .subscribe();
   }
 
   directory_data() {
@@ -38,7 +64,9 @@ export class PageComponent implements OnInit {
       .subscribe((data: DirectoryData) => {
         this.currentDirectoryData = data;
         this.dataSource = new MatTableDataSource<FFile>(data.files);
-        console.log(data);
+        for (const i of this.currentDirectoryData.files.filter((x) => x.status === 'csv')) {
+          this.selectedColumns[i.filename] = {column: i.columns[0], type: 'continuous'};
+        }
       });
   }
 
@@ -53,9 +81,8 @@ export class PageComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.filename + 1}`;
   }
-
 
 
 }

@@ -5,8 +5,7 @@
         <mat-card-title>Generate report</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <button mat-button (click)="fun_test()">Generate</button>
-        do stuff
+        <button mat-button (click)="generateReport()">Generate</button>
       </mat-card-content>
     </mat-card>
 
@@ -15,7 +14,7 @@
         <mat-card-title>other reports</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <button mat-button (click)="fun_test()">Generate</button>
+        <button mat-button (click)="fun_test()">click</button>
         do stuff
       </mat-card-content>
     </mat-card>
@@ -65,8 +64,20 @@
         <mat-card-title>{{item.filename}}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p *ngFor="let col of item.columns">{{col}}</p>
-        <img src="https://media.tenor.com/images/f7523797b0207e5af66f394dbf559a05/tenor.gif" alt="asda">
+        <mat-form-field>
+          <mat-label>Select a column</mat-label>
+          <mat-select [(value)]="selectedColumns[item.filename].column">
+            <mat-option *ngFor="let col of item.columns" [value]="col">{{col}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-radio-group aria-labelledby="Select an option"
+                         [(ngModel)]="selectedColumns[item.filename].type"
+        >
+          <mat-radio-button value="continuous">continuous</mat-radio-button>
+          <mat-radio-button value="discrete">discrete</mat-radio-button>
+        </mat-radio-group>
+
       </mat-card-content>
     </mat-card>
   </div>
