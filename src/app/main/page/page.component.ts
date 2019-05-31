@@ -2,9 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {InteractionService} from '../interaction.service';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource} from '@angular/material';
-import {FFile} from '../../models/DirectoryData';
+import {FFile, Report} from '../../models/DirectoryData';
 import {DirectoryData} from '../../models/DirectoryData';
 import {Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-page',
@@ -21,25 +23,34 @@ export class PageComponent implements OnInit {
   dataSource = new MatTableDataSource<FFile>();
 
   selectedColumns = {};
+  reportList: Report[];
 
-  constructor(private interaction: InteractionService, private router: Router) {
+  constructor(private interaction: InteractionService) {
 
   }
 
   ngOnInit() {
     this.directory_data();
+    this.report_data();
   }
 
   fun_test() {
-    console.log(this.selectedColumns);
-    this.router.navigateByUrl('/app/report');
+    // console.log(this.selectedColumns);
+    this.interaction.report_list().subscribe((x) => console.log(x));
     // this.interaction.see_report('dwada')
     //   .subscribe(()=> );
   }
 
+  report_data() {
+    this.interaction.report_list()
+      .subscribe((data) => {
+        this.reportList = data.map((x) =>
+          new Report(x, 'http://' + environment.BACKEND_ADDRESS + '/report/' + x)
+        );
+      });
+  }
+
   generateReport() {
-
-
     const cargo = this.selection.selected
       .map((x) => {
         return {

@@ -28,6 +28,10 @@ export class InteractionService {
     return this.http.post(this.addr + '/api/report', {data: cargo});
   }
 
+  report_list() {
+    return this.http.get<string[]>(this.addr + '/api/report');
+  }
+
   see_report(name) {
     return this.http.get(this.addr + '/app/report');
   }

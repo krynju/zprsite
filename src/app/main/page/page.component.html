@@ -16,6 +16,14 @@
       <mat-card-content>
         <button mat-button (click)="fun_test()">click</button>
         do stuff
+
+
+        <a href="http://127.0.0.1:5000/report/test_dir2">dawda</a>
+
+        <p *ngFor="let report of reportList">
+          <a [href]="report.href">{{report.name}}</a>
+        </p>
+
       </mat-card-content>
     </mat-card>
   </div>
