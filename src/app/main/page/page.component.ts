@@ -26,8 +26,8 @@ export class PageComponent implements OnInit {
   reportList: Report[];
 
   constructor(private interaction: InteractionService) {
-
   }
+
 
   ngOnInit() {
     this.directory_data();
