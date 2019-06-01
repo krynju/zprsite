@@ -1,29 +1,25 @@
 <div class="main_box">
   <div class="box" style="display: flex;flex-direction: column">
-    <mat-card>
+    <mat-card style="margin-bottom: 15px">
       <mat-card-header>
         <mat-card-title>Generate report</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <button mat-button (click)="generateReport()">Generate</button>
+        <button mat-button (click)="fun_test()">click</button>
       </mat-card-content>
     </mat-card>
 
     <mat-card>
       <mat-card-header>
-        <mat-card-title>other reports</mat-card-title>
+        <mat-card-title>Report history</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <button mat-button (click)="fun_test()">click</button>
-        do stuff
-
-
-        <a href="http://127.0.0.1:5000/report/test_dir2">dawda</a>
-
-        <p *ngFor="let report of reportList">
+        <mat-list>
+          <mat-list-item *ngFor="let report of reportList">
           <a [href]="report.href">{{report.name}}</a>
-        </p>
-
+          </mat-list-item>
+        </mat-list>
       </mat-card-content>
     </mat-card>
   </div>
@@ -80,8 +76,7 @@
         </mat-form-field>
 
         <mat-radio-group aria-labelledby="Select an option"
-                         [(ngModel)]="selectedColumns[item.filename].type"
-        >
+                         [(ngModel)]="selectedColumns[item.filename].type">
           <mat-radio-button value="continuous">continuous</mat-radio-button>
           <mat-radio-button value="discrete">discrete</mat-radio-button>
         </mat-radio-group>

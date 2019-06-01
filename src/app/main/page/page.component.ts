@@ -35,10 +35,8 @@ export class PageComponent implements OnInit {
   }
 
   fun_test() {
-    // console.log(this.selectedColumns);
     this.interaction.report_list().subscribe((x) => console.log(x));
-    // this.interaction.see_report('dwada')
-    //   .subscribe(()=> );
+
   }
 
   report_data() {

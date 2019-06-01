@@ -3,9 +3,18 @@ import {CommonModule} from '@angular/common';
 
 import {MainRoutingModule} from './main-routing.module';
 import {PageComponent} from './page/page.component';
-import {MatButtonModule, MatCardModule, MatCheckboxModule, MatCommonModule, MatRadioModule, MatSelectModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatCommonModule,
+  MatListModule,
+  MatRadioModule,
+  MatSelectModule
+} from '@angular/material';
 import {MatTableModule} from '@angular/material/table';
 import {FormsModule} from '@angular/forms';
+
 
 @NgModule({
   declarations: [PageComponent],
@@ -20,6 +29,7 @@ import {FormsModule} from '@angular/forms';
     MatSelectModule,
     MatRadioModule,
     FormsModule,
+    MatListModule
   ]
 })
 export class MainModule {
