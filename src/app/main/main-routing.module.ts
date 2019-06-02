@@ -4,7 +4,6 @@ import {PageComponent} from './page/page.component';
 
 const routes: Routes = [
   {path: '', component: PageComponent},
-  {path: 'report'}
 ];
 
 @NgModule({

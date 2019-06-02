@@ -2,9 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {InteractionService} from '../interaction.service';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource} from '@angular/material';
-import {FFile, Report} from '../../models/DirectoryData';
-import {DirectoryData} from '../../models/DirectoryData';
-import {Router} from '@angular/router';
+import {DirectoryData, FFile, Report} from '../../models/DirectoryData';
 import {environment} from '../../../environments/environment';
 
 
@@ -44,7 +42,9 @@ export class PageComponent implements OnInit {
       .subscribe((data) => {
         this.reportList = data.map((x) =>
           new Report(x, 'http://' + environment.BACKEND_ADDRESS + '/report/' + x)
-        );
+        ).sort((a, b) => {
+          return a.name > b.name ? -1 : a.name < b.name ? 1 : 0;
+        });
       });
   }
 
@@ -65,7 +65,14 @@ export class PageComponent implements OnInit {
     }
 
     this.interaction.report_request(cargo)
-      .subscribe();
+      .subscribe((data: { status, report_name }) => {
+        const report = new Report(
+          data.report_name,
+          'http://' + environment.BACKEND_ADDRESS + '/report/' + data.report_name
+        );
+
+        this.reportList.unshift(report);
+      });
   }
 
   directory_data() {
