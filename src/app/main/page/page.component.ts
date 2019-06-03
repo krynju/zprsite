@@ -43,6 +43,7 @@ export class PageComponent implements OnInit {
         this.reportList = data.map((x) =>
           new Report(x, 'http://' + environment.BACKEND_ADDRESS + '/report/' + x)
         ).sort((a, b) => {
+          // ;
           return a.name > b.name ? -1 : a.name < b.name ? 1 : 0;
         });
       });
