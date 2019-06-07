@@ -22,6 +22,8 @@ export class PageComponent implements OnInit {
 
   selectedColumns = {};
   reportList: Report[];
+  analysis_type: string;
+  private waiting: boolean;
 
   constructor(private interaction: InteractionService) {
   }
@@ -55,7 +57,7 @@ export class PageComponent implements OnInit {
         return {
           filename: x.filename,
           column: this.selectedColumns[x.filename].column,
-          type: this.selectedColumns[x.filename].type,
+          type: this.analysis_type,
         };
       });
 
@@ -65,6 +67,7 @@ export class PageComponent implements OnInit {
       return;
     }
 
+    this.waiting = true;
     this.interaction.report_request(cargo)
       .subscribe((data: { status, report_name }) => {
         const report = new Report(
@@ -73,6 +76,7 @@ export class PageComponent implements OnInit {
         );
 
         this.reportList.unshift(report);
+        this.waiting = false;
       });
   }
 
@@ -87,7 +91,6 @@ export class PageComponent implements OnInit {
       });
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;

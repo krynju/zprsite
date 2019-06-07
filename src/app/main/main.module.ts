@@ -8,7 +8,7 @@ import {
   MatCardModule,
   MatCheckboxModule,
   MatCommonModule,
-  MatListModule,
+  MatListModule, MatProgressSpinnerModule,
   MatRadioModule,
   MatSelectModule
 } from '@angular/material';
@@ -29,7 +29,8 @@ import {FormsModule} from '@angular/forms';
     MatSelectModule,
     MatRadioModule,
     FormsModule,
-    MatListModule
+    MatListModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MainModule {

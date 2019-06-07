@@ -1,16 +1,25 @@
 <div class="main_box">
   <div class="box" style="display: flex;flex-direction: column">
-    <mat-card style="margin-bottom: 15px">
-      <mat-card-header>
+    <mat-card style="margin-bottom: 15px; height:auto">
+      <mat-card-header style="display: flex; justify-content: center">
         <mat-card-title>Generate report</mat-card-title>
       </mat-card-header>
-      <mat-card-content>
-        <button mat-button [disabled]="selection.selected.length !=2" (click)="generateReport()">Generate</button>
-        <button mat-button (click)="fun_test()">click</button>
+      <mat-card-content style="display: flex; justify-content: space-between; align-items:baseline">
+        <div style="display: flex; flex-direction: row;">
+          <button mat-stroked-button [disabled]="selection.selected.length !=2 || !!!analysis_type"
+                  (click)="generateReport()">Generate
+          </button>
+
+          <mat-spinner style="margin-left: 3px" *ngIf="waiting" [diameter]="32"></mat-spinner>
+        </div>
+        <mat-radio-group aria-labelledby="Select an option" [(ngModel)]="analysis_type">
+          <mat-radio-button style="margin-right: 4px" value="continuous">continuous</mat-radio-button>
+          <mat-radio-button value="discrete">discrete</mat-radio-button>
+        </mat-radio-group>
       </mat-card-content>
     </mat-card>
 
-    <mat-card>
+    <mat-card style="height:auto">
       <mat-card-header>
         <mat-card-title>Report history</mat-card-title>
       </mat-card-header>
@@ -26,7 +35,7 @@
 
 
   <mat-card class="box">
-    <mat-card-header>
+    <mat-card-header style="display: flex; justify-content: center">
       <mat-card-title>Choose two files</mat-card-title>
     </mat-card-header>
     <mat-card-content>
@@ -64,7 +73,7 @@
 
   <div class="box middle-box">
     <mat-card *ngFor="let item of selection.selected">
-      <mat-card-header>
+      <mat-card-header style="display: flex; justify-content: center">
         <mat-card-title>{{item.filename}}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
@@ -75,11 +84,6 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-radio-group aria-labelledby="Select an option"
-                         [(ngModel)]="selectedColumns[item.filename].type">
-          <mat-radio-button value="continuous">continuous</mat-radio-button>
-          <mat-radio-button value="discrete">discrete</mat-radio-button>
-        </mat-radio-group>
 
       </mat-card-content>
     </mat-card>
