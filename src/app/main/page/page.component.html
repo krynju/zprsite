@@ -6,7 +6,7 @@
       </mat-card-header>
       <mat-card-content style="display: flex; justify-content: space-between; align-items:baseline">
         <div style="display: flex; flex-direction: row;">
-          <button mat-stroked-button [disabled]="selection.selected.length !=2 || !!!analysis_type"
+          <button mat-stroked-button [disabled]="selection.selected.length !=2 || !!!analysis_type || waiting"
                   (click)="generateReport()">Generate
           </button>
 
