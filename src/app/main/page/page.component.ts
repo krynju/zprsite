@@ -23,7 +23,7 @@ export class PageComponent implements OnInit {
   selectedColumns = {};
   reportList: Report[];
   analysis_type: string;
-  private waiting: boolean;
+  waiting: boolean;
 
   constructor(private interaction: InteractionService) {
   }
